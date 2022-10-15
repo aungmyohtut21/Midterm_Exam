@@ -1,0 +1,40 @@
+---
+title: "Midterm_Exam"
+author: "Aung Myo Htut"
+date: "2022-10-15"
+output: html_document
+---
+
+```{r}
+pacman::p_load(tidyverse, ggplot2)
+```
+
+#(a)Import dataset
+```{r}
+df <- read_csv("https://raw.githubusercontent.com/kijohnson/Data/main/titanic.csv")
+```
+
+```{r}
+dim(df)
+colnames(df)
+```
+
+#(b)median age for by passenger class
+```{r}
+df %>% group_by(Pclass) %>% summarise(median_age = median(Age))
+```
+
+#(c)Plot for medians, spread of data and outliers for age according to passenger class
+```{r}
+boxplot(Age ~ Pclass, data = df)
+
+#OR
+
+#change Pclass variable to character first
+df %>% mutate(Pclass = as.character(Pclass)) -> df1
+p1 <- ggplot(df1, aes(Pclass, Age)) + geom_boxplot()
+p1
+
+ggsave("p1.png", plot = p1)
+```
+
