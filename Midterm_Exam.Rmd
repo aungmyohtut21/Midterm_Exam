@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r}
-pacman::p_load(tidyverse, ggplot2)
+pacman::p_load(tidyverse, ggplot2, table1)
 ```
 
 #(a)Import dataset
@@ -21,7 +21,7 @@ colnames(df)
 
 #(b)median age for by passenger class
 ```{r}
-df %>% group_by(Pclass) %>% summarise(median_age = median(Age))
+df %>% group_by(Pclass) %>% summarise(median_age = median(Age)) 
 ```
 
 #(c)Plot for medians, spread of data and outliers for age according to passenger class
@@ -36,5 +36,9 @@ p1 <- ggplot(df1, aes(Pclass, Age)) + geom_boxplot()
 p1
 
 ggsave("p1.png", plot = p1)
+```
+#4b
+```{r}
+table1(~ Sex|Pclass, data = df1)
 ```
 
